@@ -1,6 +1,6 @@
-# WhatsApp MCP Server
+# WhatsApp MCP Server + Siri
 
-This is a Model Context Protocol (MCP) server for WhatsApp.
+This is a voice add on for the MCP server for WhatsApp made by Luke Harris at ElevenLabs. This demo uses the ElevenLabs technology to read out messages in your contacts, by 
 
 With this you can search you personal Whatsapp messages, search your contacts and send messages to either individuals or groups.
 

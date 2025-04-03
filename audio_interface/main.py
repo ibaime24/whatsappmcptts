@@ -1,6 +1,6 @@
 """
 Siri ~ish clone with Luke Harris' WhatsaApp MCP.
-Records audio, converts to text, and automatically processes MCP WhatsApp commands. 
+Records audio, converts to text, and automatically processes MCP WhatsApp commands. Finally, outputs the results in the voice of the texter. Uses ElevenLabs TTS.
 """
 
 import os
@@ -96,9 +96,9 @@ class VoiceCommandInterface:
                 is_from_me = message.is_from_me
                 
                 if is_from_me:
-                    narrator_text = f"Your last message to {name} was sent at {timestamp} and said:"
+                    narrator_text = f"Your last message to {name} was:"
                 else:
-                    narrator_text = f"The last message from {name} was sent at {timestamp} and said:"
+                    narrator_text = f"The last message from {name} was:"
                 
                 # Speak response
                 self.tts_handler.speak_narrator_text(narrator_text)
