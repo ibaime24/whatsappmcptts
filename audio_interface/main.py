@@ -1,6 +1,6 @@
 """
-Voice interface for WhatsApp commands.
-Records audio, converts to text, and automatically processes WhatsApp commands.
+Siri ~ish clone with Luke Harris' WhatsaApp MCP.
+Records audio, converts to text, and automatically processes MCP WhatsApp commands. 
 """
 
 import os
@@ -146,10 +146,10 @@ class VoiceCommandInterface:
                             self.tts_handler.speak_narrator_text("Failed to process speech. Please try again.")
                             continue
                             
-                        # Echo the command back
-                        print(f"\nCommand: {command}")
-                        self.tts_handler.speak_narrator_text("I heard:")
-                        self.tts_handler.speak_message_text(command)
+                        # # Echo the command back
+                        # print(f"\nCommand: {command}")
+                        # self.tts_handler.speak_narrator_text("I heard:")
+                        # self.tts_handler.speak_message_text(command)
                         
                         # Process the command
                         self.process_whatsapp_command(command)
@@ -157,11 +157,11 @@ class VoiceCommandInterface:
                         # Cleanup
                         cleanup_audio_file(audio_file)
                         
-                        # Ask if user wants to record another command
-                        self.tts_handler.speak_narrator_text("Would you like to try another command?")
-                        response = input("Try another command? (y/n): ")
-                        if response.lower() != 'y':
-                            raise KeyboardInterrupt
+                        # # Ask if user wants to record another command
+                        # self.tts_handler.speak_narrator_text("Would you like to try another command?")
+                        # response = input("Try another command? (y/n): ")
+                        # if response.lower() != 'y':
+                        #     raise KeyboardInterrupt
                         
                     except Exception as e:
                         print(f"Error processing command: {e}")
