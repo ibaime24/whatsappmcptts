@@ -1,0 +1,17 @@
+# Audio recording and processing
+pyaudio>=0.2.13
+wave>=0.0.2
+
+# API clients
+openai>=1.0.0
+elevenlabs>=0.3.0
+
+# Environment and utilities
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# Type hints support
+typing-extensions>=4.5.0
+
+# Optional: Audio format conversion if needed
+# pydub>=0.25.1  # Uncomment if we need audio format conversion 
