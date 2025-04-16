@@ -20,7 +20,7 @@ It connects to your **personal WhatsApp account** directly via the Whatsapp web 
 1. **Clone this repository**
 
    ```bash
-   git clone https://github.com/lharries/whatsapp-mcp.git
+   git clone https://github.com/ibaime24/whatsapp-mcp.git
    cd whatsapp-mcp
    ```
 
