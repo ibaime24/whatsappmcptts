@@ -1,6 +1,6 @@
 # WhatsApp MCP Server + Voice Control (Siri)
 
-This is a voice add on for the MCP server for WhatsApp made by Luke Harris at ElevenLabs. This demo uses the ElevenLabs technology to read out messages in your contacts and speaks out their texts with the appropriate voice.
+This is a voice add on for the MCP server for WhatsApp made by Luke Harris at ElevenLabs. This demo uses the ElevenLabs technology to read out messages in your contacts and speaks out their texts with the appropriate voice. So, your WhatsApp texts can be read out loud as Siri does, but with the actual voices of your loved ones. 
 
 With this you can search you personal Whatsapp messages, search your contacts and send messages to either individuals or groups. This add on lets you now interact with the MCP + Claude functions as you do with Siri on your iPhone: completely voice controlled. Currently optimized for reading messages. 
 

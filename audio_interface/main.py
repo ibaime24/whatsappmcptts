@@ -22,13 +22,15 @@ from whatsapp import search_contacts, get_last_interaction
 
 from .audio_capture import AudioRecorder, process_with_whisper, cleanup_audio_file
 from .tts_handler import TTSHandler, VoiceConfig
+from .voice_mapper import VoiceMapper
 
 @dataclass
 class Config:
     openai_api_key: str
     elevenlabs_api_key: str
     narrator_voice_id: str
-    message_voice_id: str
+    default_voice_id: str  # Renamed from message_voice_id to be more clear
+    voice_mappings_path: Optional[str] = None  # Path to voice mappings config
     temp_dir: Optional[str] = None
 
 class VoiceCommandInterface:
@@ -36,10 +38,14 @@ class VoiceCommandInterface:
         """Initialize the voice interface with configuration."""
         self.config = config
         self.audio_recorder = AudioRecorder(temp_dir=config.temp_dir)
+        self.voice_mapper = VoiceMapper(
+            default_voice_id=config.default_voice_id,
+            config_path=config.voice_mappings_path
+        )
         self.tts_handler = TTSHandler(
             api_key=config.elevenlabs_api_key,
             narrator_voice=VoiceConfig(voice_id=config.narrator_voice_id),
-            message_voice=VoiceConfig(voice_id=config.message_voice_id)
+            voice_mapper=self.voice_mapper
         )
 
     def process_whatsapp_command(self, command: str) -> None:
@@ -97,12 +103,12 @@ class VoiceCommandInterface:
                 
                 if is_from_me:
                     narrator_text = f"Your last message to {name} was:"
+                    self.tts_handler.speak_narrator_text(narrator_text)
+                    self.tts_handler.speak_message_text(content, "me")
                 else:
                     narrator_text = f"The last message from {name} was:"
-                
-                # Speak response
-                self.tts_handler.speak_narrator_text(narrator_text)
-                self.tts_handler.speak_message_text(content)
+                    self.tts_handler.speak_narrator_text(narrator_text)
+                    self.tts_handler.speak_message_text(content, name)
                 return
             
             # If command not recognized
@@ -178,7 +184,8 @@ def main():
         openai_api_key=os.getenv("OPENAI_API_KEY"),
         elevenlabs_api_key=os.getenv("ELEVENLABS_API_KEY"),
         narrator_voice_id=os.getenv("NARRATOR_VOICE_ID"),
-        message_voice_id=os.getenv("MESSAGE_VOICE_ID"),
+        default_voice_id=os.getenv("MESSAGE_VOICE_ID"),
+        voice_mappings_path=os.getenv("VOICE_MAPPINGS_PATH"),
         temp_dir=os.getenv("TEMP_DIR")
     )
     
@@ -190,7 +197,7 @@ def main():
         print("Error: ELEVENLABS_API_KEY not found in .env file")
         sys.exit(1)
         
-    if not config.narrator_voice_id or not config.message_voice_id:
+    if not config.narrator_voice_id or not config.default_voice_id:
         print("Error: Voice IDs not found in .env file")
         sys.exit(1)
     
